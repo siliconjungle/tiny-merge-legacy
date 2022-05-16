@@ -1,12 +1,12 @@
 {
-  "name": "@silicon-jungle/tiny-crdt",
+  "name": "@silicon-jungle/tiny-merge",
   "type": "module",
   "version": "0.0.0",
   "description": "A tiny CRDT implemented in Javascript.",
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "node sequencer.js"
+    "start": "node index.js"
   },
   "author": "James Addison",
   "license": "MIT",
