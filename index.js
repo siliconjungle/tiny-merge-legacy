@@ -2,6 +2,10 @@ import { deepCompare, createRandomId } from './utils'
 
 const ram = {}
 
+const OPERATIONS = {
+  SET: 'set',
+}
+
 export const get = (address) => {
   return ram[address] ?? null
 }
@@ -28,22 +32,17 @@ export const shouldUpdate = (address, version, userId) => {
 
 export const set = (value, userId, version = 0, address = createRandomId()) => {
   const datum = get(address)
-  if (datum === null) {
-    ram[address] = {
-      value,
-      version,
-      createdBy: userId,
-      lastUpdatedBy: userId,
-    }
-  } else {
-    if (shouldUpdate(address, version, userId)) {
-      ram[address] = {
-        value,
-        version,
-        createdBy: datum.createdBy,
-        lastUpdatedBy: userId,
-      }
-    }
+  const createdBy = datum ? datum.createdBy : userId
+
+  if (datum && !shouldUpdate(address, version, userId)) {
+    return null
+  }
+
+  ram[address] = {
+    value,
+    version,
+    createdBy,
+    lastUpdatedBy: userId,
   }
 
   return address
@@ -51,31 +50,26 @@ export const set = (value, userId, version = 0, address = createRandomId()) => {
 
 export const getLocalChanges = (address, value, user) => {
   const datum = get(address)
-  if (datum) {
-    if (deepCompare(datum.value, value)) {
-      return null
-    }
-    return {
-      type: 'set',
-      address,
-      value,
-      version: datum.version + 1,
-      createdBy: datum.createdBy,
-      lastUpdatedBy: user,
-    }
+
+  if (datum && deepCompare(datum.value, value)) {
+    return null
   }
+
+  const version = datum?.version + 1 || 0
+  const createdBy = datum?.createdBy || user
+
   return {
-    type: 'set',
+    type: OPERATIONS.SET,
     address,
     value,
-    version: 0,
-    createdBy: user,
+    version,
+    createdBy,
     lastUpdatedBy: user,
   }
 }
 
 export const applyOperation = (operation) => {
-  if (operation.type === 'set') {
+  if (operation.type === OPERATIONS.SET) {
     set(operation.value, operation.lastUpdatedBy, operation.version, operation.address)
   }
 }
