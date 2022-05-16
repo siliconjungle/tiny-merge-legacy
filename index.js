@@ -7,18 +7,18 @@ export const get = (address) => {
 }
 
 export const shouldUpdate = (address, version, userId) => {
-  const crdt = get(address)
+  const datum = get(address)
 
-  if (crdt.version > version) {
+  if (datum.version > version) {
     return false
   }
 
-  if (crdt.version === version) {
-    if (crdt.lastUpdatedBy === userId) {
+  if (datum.version === version) {
+    if (datum.lastUpdatedBy === userId) {
       return false
     }
 
-    if (crdt.lastUpdatedBy > userId) {
+    if (datum.lastUpdatedBy > userId) {
       return false
     }
   }
@@ -27,8 +27,8 @@ export const shouldUpdate = (address, version, userId) => {
 }
 
 export const set = (value, userId, version = 0, address = createRandomId()) => {
-  const crdt = get(address)
-  if (crdt === null) {
+  const datum = get(address)
+  if (datum === null) {
     ram[address] = {
       value,
       version,
@@ -40,25 +40,27 @@ export const set = (value, userId, version = 0, address = createRandomId()) => {
       ram[address] = {
         value,
         version,
-        createdBy: crdt.createdBy,
+        createdBy: datum.createdBy,
         lastUpdatedBy: userId,
       }
     }
   }
+
+  return address
 }
 
 export const getLocalChanges = (address, value, user) => {
-  const crdt = get(address)
-  if (crdt) {
-    if (deepCompare(crdt.value, value)) {
+  const datum = get(address)
+  if (datum) {
+    if (deepCompare(datum.value, value)) {
       return null
     }
     return {
       type: 'set',
       address,
       value,
-      version: crdt.version + 1,
-      createdBy: crdt.createdBy,
+      version: datum.version + 1,
+      createdBy: datum.createdBy,
       lastUpdatedBy: user,
     }
   }
