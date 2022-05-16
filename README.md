@@ -1,17 +1,7 @@
 # Tiny Merge
 A tiny CRDT implemented in Javascript.
 
-I've tried to make it as small and simple as possible whilst still remaining useful and readable.
-
-The structure is as follows:
-- There is a key/value store called ram
-- You can get values, set values, check if a value should be set and get local changes.
-- It doesn't check each of the individual fields like Shelf does, instead it treats the whole thing as a blob.
-- The intent is for this data to be used as RAM and for other data structures to be defined later such as scene graphs, lists, key / value stores, etc. That's why random id's are assigned as their keys rather than focussing on allowing user's to set their own.
-- Types are not compared in the same way as shelf, instead if there is a version conflict, who is selected is entirely based on userId.
-- Due to objects being treated as blobs, the diff is not sent and instead the whole object is. This would be fine for something like a list when you're sending the items on push, but wouldn't be as great for other forms of collaboration. The diff's could be sent but a history would be needed to figure out what the state looked like when the user made that change.
-- Includes a sequencer, these sequencers can be stored in ram using tiny.
-- The sequencer only has a push operation. Each element is a 
+The philosophy behind Tiny Merge is to strategically reduce the functionality of CRDT's in favour of simplicity.
 
 ## License
 MIT License
