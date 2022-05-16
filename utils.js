@@ -1,7 +1,7 @@
-export const deepCopy = (obj) => {
-  return JSON.parse(JSON.stringify(obj))
+export const deepCompare = (a, b) => {
+  return JSON.stringify(a) === JSON.stringify(b)
 }
 
-export const generateRandomId = () => {
+export const createRandomId = () => {
   return Math.random().toString(36).substring(2)
 }

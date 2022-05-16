@@ -1,8 +1,8 @@
 {
-  "name": "@silicon-jungle/reference-crdt",
+  "name": "@silicon-jungle/tiny-crdt",
   "type": "module",
   "version": "0.0.0",
-  "description": "An implementation of crdt references",
+  "description": "A tiny CRDT implemented in Javascript.",
   "main": "index.js",
   "scripts": {
     "test": "jest",

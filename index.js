@@ -1,4 +1,4 @@
-import { deepCopy, generateRandomId } from './utils.js'
+import { deepCompare, createRandomId } from './utils'
 
 const ram = {}
 
@@ -9,7 +9,7 @@ export const get = (address) => {
 export const shouldUpdate = (address, version, userId) => {
   const crdt = get(address)
 
-  if (crdt.version < version) {
+  if (crdt.version > version) {
     return false
   }
 
@@ -18,7 +18,7 @@ export const shouldUpdate = (address, version, userId) => {
       return false
     }
 
-    if (crdt.lastUpdatedBy < userId) {
+    if (crdt.lastUpdatedBy > userId) {
       return false
     }
   }
@@ -26,10 +26,17 @@ export const shouldUpdate = (address, version, userId) => {
   return true
 }
 
-export const set = (value, userId, version = 0, address = generateRandomId()) => {
+export const set = (value, userId, version = 0, address = createRandomId()) => {
   const crdt = get(address)
-  if (crdt) {
-    if (shouldUpdate) {
+  if (crdt === null) {
+    ram[address] = {
+      value,
+      version,
+      createdBy: userId,
+      lastUpdatedBy: userId,
+    }
+  } else {
+    if (shouldUpdate(address, version, userId)) {
       ram[address] = {
         value,
         version,
@@ -37,20 +44,13 @@ export const set = (value, userId, version = 0, address = generateRandomId()) =>
         lastUpdatedBy: userId,
       }
     }
-  } else {
-    ram[address] = {
-      value,
-      version,
-      createdBy: userId,
-      lastUpdatedBy: userId,
-    }
   }
 }
 
 export const getLocalChanges = (address, value, user) => {
   const crdt = get(address)
   if (crdt) {
-    if (deepCopy(crdt.value) === deepCopy(value)) {
+    if (deepCompare(crdt.value, value)) {
       return null
     }
     return {
@@ -58,6 +58,7 @@ export const getLocalChanges = (address, value, user) => {
       address,
       value,
       version: crdt.version + 1,
+      createdBy: crdt.createdBy,
       lastUpdatedBy: user,
     }
   }
