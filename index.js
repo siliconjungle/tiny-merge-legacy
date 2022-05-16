@@ -71,3 +71,9 @@ export const getLocalChanges = (address, value, user) => {
     lastUpdatedBy: user,
   }
 }
+
+export const applyOperation = (operation) => {
+  if (operation.type === 'set') {
+    set(operation.value, operation.lastUpdatedBy, operation.version, operation.address)
+  }
+}
