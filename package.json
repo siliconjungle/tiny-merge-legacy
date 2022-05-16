@@ -6,11 +6,13 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "node index.js"
+    "start": "node sequencer.js"
   },
   "author": "James Addison",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "events": "^3.3.0"
+  },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.16.8",
     "jest": "^27.5.1"
