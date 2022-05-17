@@ -9,7 +9,7 @@ export const create = () => {
   }
 }
 
-export const pushReference = (ram, sequencer, value, sequence, userId) => {
+export const push = (ram, sequencer, value, sequence, userId) => {
   const { references, sequences } = sequencer
   const { address } = ram.set (value, userId)
 
@@ -17,6 +17,7 @@ export const pushReference = (ram, sequencer, value, sequence, userId) => {
   if (index === -1) {
     references.push(address)
     sequences.push(sequence)
+    return address
   }
 
   const element = ram.get(references[index])
@@ -27,5 +28,10 @@ export const pushReference = (ram, sequencer, value, sequence, userId) => {
 
   references.splice(index, 0, address)
   sequences.splice(index, 0, sequence)
-  return sequencer
+  return address
+}
+
+export const getValues = (ram, sequencer) => {
+  const { references } = sequencer
+  return references.map(address => ram.get(address))
 }
