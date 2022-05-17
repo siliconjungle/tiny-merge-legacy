@@ -9,7 +9,7 @@ export const create = (value, userId, version = 0) => {
   }
 }
 
-const shouldUpdate = (datum, version, userId) => {
+export const shouldUpdate = (datum, version, userId) => {
   if (datum.version > version) {
     return false
   }

@@ -5,7 +5,6 @@ import * as keystore from './keystore.js'
 import * as sequencer from './sequencer.js'
 import * as tiny from './tiny.js'
 import * as tinyFactory from './tiny-factory.js'
-import * as likes from './likes.js'
 import * as tree from './tree.js'
 
 export {
@@ -16,6 +15,5 @@ export {
   sequencer,
   tiny,
   tinyFactory,
-  likes,
   tree,
 }
