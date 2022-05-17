@@ -52,3 +52,5 @@ class Ram {
     return this.emitter.listenerCount(address)
   }
 }
+
+export default Ram
