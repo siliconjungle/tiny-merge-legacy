@@ -1,4 +1,4 @@
-const CRDT_TYPES = {
+export const CRDT_TYPES = {
   SEQUENCER: 'sequencer',
   KEYSTORE: 'keystore',
 }
