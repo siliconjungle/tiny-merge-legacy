@@ -37,7 +37,7 @@ class Ram {
       )
     }
 
-    return address
+    return { hasUpdated, address }
   }
 
   subscribe (address, callback) {
