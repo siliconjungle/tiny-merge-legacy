@@ -1,9 +1,8 @@
-import { createTree } from './tree.js'
-import { setKeystoreByKey, getKeystoreByKey, getKeystoreAddressByKey } from './keystore.js'
+import { createKeystore, setKeystoreByKey, getKeystoreByKey, getKeystoreAddressByKey } from './keystore.js'
 
 export const createDocument = () => {
   return {
-    data: createTree(),
+    data: createKeystore(),
   }
 }
 

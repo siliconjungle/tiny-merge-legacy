@@ -1,9 +1,9 @@
 import { createKeystore, setKeystoreByKey, getKeystoreByKey, getKeystoreAddressByKey } from './keystore.js'
 
-export const createCollection = (name, description) => {
+export const createCollection = (description, definition) => {
   return {
-    name,
     description,
+    definition,
     documents: createKeystore(),
   }
 }
