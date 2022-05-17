@@ -1,19 +1,20 @@
-import { createRandomId } from './utils.js'
+import { createTree } from './tree.js'
+import { setKeystoreByKey, getKeystoreByKey, getKeystoreAddressByKey } from './keystore.js'
 
 export const createDocument = () => {
-  return {}
+  return {
+    data: createTree(),
+  }
 }
 
-export const setDocumentByKey = (ram, document, key, value, version, userId) => {
-  const saveAddress = document[key] ?? createRandomId()
-  document[key] = saveAddress
-  return ram.set (value, userId, version, saveAddress)
+export const setDocumentByKey = (ram, collection, key, value, version, userId) => {
+  return setKeystoreByKey(ram, collection.documents, key, value, version, userId)
 }
 
-export const getDocumentByKey = (ram, document, key) => {
-  return ram.get(document[key]) ?? null
+export const getDocumentByKey = (ram, collection, key) => {
+  return getKeystoreByKey(ram, collection.documents, key)
 }
 
-export const getDocumentAddressByKey = (document, key) => {
-  return document[key] ?? null
+export const getDocumentAddressByKey = (collection, key) => {
+  return getKeystoreAddressByKey(collection.documents, key)
 }

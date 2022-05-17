@@ -1,7 +1,7 @@
-import { createDocument, setDocumentByKey, getDocumentAddressByKey } from './document.js'
+import { createKeystore, setKeystoreByKey, getKeystoreAddressByKey } from './keystore.js'
 
 export const createTree = () => {
-  return createDocument()
+  return createKeystore()
 }
 
 export const getAddressAtPath = (ram, rootAddress, path) => {
@@ -10,7 +10,7 @@ export const getAddressAtPath = (ram, rootAddress, path) => {
   }
   const key = path[0]
   const root = ram.get(rootAddress)
-  const address = getDocumentAddressByKey(root, key)
+  const address = getKeystoreAddressByKey(root, key)
   if (address === null) {
     return null
   }
@@ -39,11 +39,11 @@ export const setValueAtPath = (ram, rootAddress, path, value, version, userId) =
   }
 
   const key = path[path.length - 1]
-  const document = ram.get(parentAddress)
+  const keystore = ram.get(parentAddress)
 
-  if (document === null) {
+  if (keystore === null) {
     return
   }
 
-  return setDocumentByKey(ram, document, key, value, version, userId)
+  return setKeystoreByKey(ram, keystore, key, value, version, userId)
 }

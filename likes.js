@@ -1,8 +1,8 @@
-import { createDocument, setDocumentByKey } from './document.js'
+import { createKeystore, setKeystoreByKey } from './keystore.js'
 
 export const createLikes = () => {
   return {
-    document: createDocument(),
+    keystore: createKeystore(),
     count: 0,
   }
 }
@@ -11,7 +11,7 @@ export const setLike = (ram, likes, userId, value, version) => {
   if (typeof(value) !== 'boolean') {
     throw new Error('Value must be a boolean')
   }
-  const { hasUpdated, address } = setDocumentByKey(ram, likes.keystore, userId, value, version, userId)
+  const { hasUpdated, address } = setKeystoreByKey(ram, likes.keystore, userId, value, version, userId)
   if (hasUpdated) {
     likes.count += value ? 1 : -1
   }
