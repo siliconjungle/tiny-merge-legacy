@@ -1,7 +1,7 @@
-import { createKeystore, setKeystoreByKey, getKeystoreAddressByKey } from './keystore.js'
+import * as keystore from './keystore.js'
 
-export const createTree = () => {
-  return createKeystore()
+export const create = () => {
+  return keystore.create()
 }
 
 export const getAddressAtPath = (ram, rootAddress, path) => {
@@ -10,7 +10,7 @@ export const getAddressAtPath = (ram, rootAddress, path) => {
   }
   const key = path[0]
   const root = ram.get(rootAddress)
-  const address = getKeystoreAddressByKey(root, key)
+  const address = keystore.getChildAddressByKey(root, key)
   if (address === null) {
     return null
   }
@@ -45,5 +45,5 @@ export const setValueAtPath = (ram, rootAddress, path, value, version, userId) =
     return
   }
 
-  return setKeystoreByKey(ram, keystore, key, value, version, userId)
+  return keystore.setChildByKey(ram, keystore, key, value, version, userId)
 }

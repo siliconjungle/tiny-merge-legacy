@@ -2,7 +2,7 @@
 // Sequences can only grow, and are not allowed to shrink.
 // Sequences can be re-ordered by creating a reference to a reference.
 
-export const createSequencer = () => {
+export const create = () => {
   return {
     references: [],
     sequences: [],

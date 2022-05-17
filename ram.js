@@ -1,6 +1,6 @@
 import EventEmitter from 'events'
 import { createRandomId } from './utils.js'
-import { create, update } from './tiny.js'
+import * as tiny from './tiny.js'
 
 class Ram {
   constructor() {
@@ -18,11 +18,11 @@ class Ram {
     let hasUpdated = false
 
     if (datum) {
-      this.store = update(datum, value, version, userId)
+      this.store = tiny.update(datum, value, version, userId)
       hasUpdated = true
     } else {
       const { version: oldVersion, lastUpdatedBy } = datum 
-      this.store[address] = create(value, userId, version)
+      this.store[address] = tiny.create(value, userId, version)
 
       if (oldVersion !== version || lastUpdatedBy !== userId) {
         hasUpdated = true
