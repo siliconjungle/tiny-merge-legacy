@@ -9,8 +9,9 @@ export const createSequencer = () => {
   }
 }
 
-export const pushReference = (ram, sequencer, address, sequence, userId) => {
+export const pushReference = (ram, sequencer, value, sequence, userId) => {
   const { references, sequences } = sequencer
+  const address = ram.set (value, userId)
 
   let index = sequences.findIndex(s => s >= sequence)
   if (index === -1) {
