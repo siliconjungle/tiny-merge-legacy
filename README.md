@@ -6,31 +6,29 @@ The philosophy behind Tiny Merge is to strategically reduce the functionality of
 ## What future usage will look like for Tiny Merge
 
 ### Collections
-
 ```
 const blogsCollection = collection.create('blogs', {
-  title: { crdtType: CRDT_TYPE.VALUE, options: { type: TYPE.STRING } },
-  content: { crdtType: CRDT_TYPE.VALUE, options: { type: TYPE.STRING } },
-  tags: { crdtType: CRDT_TYPE.SEQUENCER, options: { type: TYPE.STRING } },
+  title: { type: PRIMITIVE.STRING },
+  content: { type: PRIMITIVE.STRING },
+  tags: { type: CRDT.SEQUENCER, options: { type: PRIMITIVE.STRING } },
 })
 ```
 
 ```
 const commentsCollection = collection.create('comments', {
-  blogId: { crdtType: CRDT_TYPE.VALUE, options: { type: TYPE.STRING } }
-  message: { crdtType: CRDT_TYPE.VALUE, options: { type: TYPE.STRING } },
+  blogId: { type: PRIMITIVE.STRING },
+  message: { type: PRIMITIVE.STRING },
 })
 ```
 
 ```
 const likesCollection = collection.create('likes', {
-  blogId: { crdtType: CRDT_TYPE.VALUE, options: { type: TYPE.STRING } }
-  users: { crdtType: CRDT_TYPE.KEY_STORE, options: { type: TYPE.BOOLEAN } }
+  blogId: { type: PRIMITIVE.STRING },
+  users: { type: CRDT.KEY_STORE, options: { type: TYPE.BOOLEAN } }
 })
 ```
 
 ### Documents
-
 ```
   const blogDocument = setDocument(blogsCollection, key, {
     title: 'First blog post',
@@ -38,13 +36,13 @@ const likesCollection = collection.create('likes', {
     tags: ['introduction'],
   })
 
-  applyDocumentOperation(collection, blogDocument, ['tags'], OPERATIONS.SEQUENCER.PUSH, value)
+  applyDocumentOperation(blogDocument, ['tags'], OPERATIONS.SEQUENCER.PUSH, value)
 ```
 
-### React
+### Used with React
 
 ```
-  const [blog, setBlog, applyOperation] = useDocument(collection, key, initialValue)
+const [blog, setBlog, applyOperation] = useDocument(collection, key, initialValue)
 ```
 
 ## License
