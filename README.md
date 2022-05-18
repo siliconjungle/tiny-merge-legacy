@@ -41,6 +41,12 @@ const likesCollection = collection.create('likes', {
 
 ### Used with React
 
+#### Collections
+```
+const [collection, setCollection, type] = useCollection(key)
+```
+
+#### Documents
 ```
 const [blog, setBlog, applyOperation] = useDocument(collection, key, initialValue)
 ```
