@@ -2,13 +2,13 @@ import * as sequencer from './sequencer.js'
 import * as keystore from './keystore.js'
 import * as tree from './tree.js'
 
-export const CRDT_TYPE = {
+export const CRDT = {
   SEQUENCER: 'sequencer',
   KEYSTORE: 'keystore',
   TREE: 'tree',
 }
 
-export const DATA_TYPE = {
+export const PRIMITIVE = {
   OBJECT: 'object',
   ARRAY: 'array',
   STRING: 'string',
@@ -19,11 +19,11 @@ export const DATA_TYPE = {
 
 export const createCrdt = (type, options) => {
   switch (type) {
-    case CRDT_TYPE.SEQUENCER:
+    case CRDT.SEQUENCER:
       return sequencer.create()
-    case CRDT_TYPE.KEYSTORE:
+    case CRDT.KEYSTORE:
       return keystore.create()
-    case CRDT_TYPE.TREE:
+    case CRDT.TREE:
       return tree.create()
     default:
       throw new Error(`Unknown CRDT type: ${type}`)
