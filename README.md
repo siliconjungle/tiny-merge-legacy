@@ -41,6 +41,20 @@ const likesCollection = collection.create('likes', {
 
 ### Used with React
 
+#### Provider
+```
+const client = new TinyClient({
+  uri: SOCKET_URL,
+  accessToken: ACCESS_TOKEN,
+})
+
+const MyApp = ({ Component, pageProps }) => (
+  <TinyProvider client={client}>
+    <Component {...pageProps} />
+  </TinyProvider>
+)
+```
+
 #### Collections
 ```
 const [collection, setCollection, type] = useCollection(key)
