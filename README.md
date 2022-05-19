@@ -7,34 +7,34 @@ The philosophy behind Tiny Merge is to strategically reduce the functionality of
 
 ### Collections
 ```
-const blogsCollection = collection.create('blogs', {
+const blogsCollection = collection.set(ram, root, 'blogs', {
   title: { type: PRIMITIVE.STRING },
   content: { type: PRIMITIVE.STRING },
   tags: { type: CRDT.SEQUENCER, options: { type: PRIMITIVE.STRING } },
-})
+}, userId, version)
 ```
 
 ```
-const commentsCollection = collection.create('comments', {
+const commentsCollection = collection.set(ram, root, 'comments', {
   blogId: { type: PRIMITIVE.STRING },
   message: { type: PRIMITIVE.STRING },
-})
+}, userId, version)
 ```
 
 ```
-const likesCollection = collection.create('likes', {
+const likesCollection = collection.set(ram, root, 'likes', {
   blogId: { type: PRIMITIVE.STRING },
   users: { type: CRDT.KEY_STORE, options: { type: TYPE.BOOLEAN } }
-})
+}, userId, version)
 ```
 
 ### Documents
 ```
-  const blogDocument = setDocument(blogsCollection, key, {
+  const blogDocument = document.set(ram, blogsCollection, 'first-post', {
     title: 'First blog post',
     content: '# Some blog content',
     tags: ['introduction'],
-  })
+  }, userId, version)
 
   applyDocumentOperation(blogDocument, ['tags'], OPERATIONS.SEQUENCER.PUSH, value)
 ```
@@ -57,12 +57,12 @@ const MyApp = ({ Component, pageProps }) => (
 
 #### Collections
 ```
-const [collection, setCollection, type] = useCollection(key)
+const [collection, setCollection, type, isLoading] = useCollection(key)
 ```
 
 #### Documents
 ```
-const [blog, setBlog, applyOperation] = useDocument(collection, key, initialValue)
+const [blog, setBlog, applyOperation, isLoading] = useDocument(collection, key, initialValue)
 ```
 
 ## License
