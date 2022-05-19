@@ -1,11 +1,5 @@
-import Ram from './ram.js'
 import * as keystore from './keystore.js'
 import { isPrimitive } from './tiny-types.js'
-
-const ram = new Ram()
-
-// This + the ram needs to be saved in a database using a repository.
-const root = {}
 
 // For now all documents are flat.
 // In the future I will be adding other types.
@@ -24,29 +18,29 @@ const matchesDefinition = (definition, data) => {
   return true
 }
 
-export const setCollectionByKey = (key, collection, userId, version = 0) => {
+export const setCollectionByKey = (ram, root, key, collection, userId, version = 0) => {
   return keystore.setChildByKey(ram, root, key, collection, userId, version)
 }
 
-export const getCollectionByKey = (key) => {
+export const getCollectionByKey = (ram, root, key) => {
   return keystore.getChildByKey(ram, root, key)
 }
 
-export const getCollections = () => {
+export const getCollectionKeys = (root) => {
   return Object.keys(root)
 }
 
-export const setDocumentByKey = (collection, key, document, userId, version = 0) => {
+export const setDocumentByKey = (ram, collection, key, document, userId, version = 0) => {
   if (document === null || matchesDefinition(collection.definition, document.data)) {
     return keystore.setChildByKey(ram, collection.documents, key, document, userId, version)
   }
   throw new Error('Document does not match collection definition')
 }
 
-export const getDocumentByKey = (collection, key) => {
+export const getDocumentByKey = (ram, collection, key) => {
   return keystore.getChildByKey(ram, collection.documents, key)
 }
 
-export const getDocumentsByCollection = (collection) => {
+export const getDocumentKeys = (collection) => {
   return Object.keys(collection.documents)
 }

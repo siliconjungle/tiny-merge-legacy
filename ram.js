@@ -18,9 +18,9 @@ class Ram {
     let hasUpdated = false
 
     if (datum) {
-      this.store = tiny.update(datum, value, version, userId)
+      this.store[address] = tiny.update(datum, value, version, userId)
 
-      const { version: oldVersion, lastUpdatedBy } = datum 
+      const { version: oldVersion, lastUpdatedBy } = datum
 
       if (oldVersion !== version || lastUpdatedBy !== userId) {
         hasUpdated = true
