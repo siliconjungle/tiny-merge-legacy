@@ -1,10 +1,14 @@
 import { createRandomId } from './utils.js'
 
-export const create = () => {
-  return {}
+export const create = (ram, initialValue, userId) => {
+  const keystore = {}
+  for (const key in initialValue) {
+    setChildByKey(ram, keystore, key, initialValue[key], userId)
+  }
+  return keystore
 }
 
-export const setChildByKey = (ram, keystore, key, value, version, userId) => {
+export const setChildByKey = (ram, keystore, key, value, userId, version = 0) => {
   const saveAddress = keystore[key] ?? createRandomId()
   keystore[key] = saveAddress
   return ram.set (value, userId, version, saveAddress)

@@ -4,8 +4,8 @@ import * as document from './document.js'
 import * as keystore from './keystore.js'
 import * as sequencer from './sequencer.js'
 import * as tiny from './tiny.js'
-import * as tinyFactory from './tiny-factory.js'
-import * as tree from './tree.js'
+import * as tinyTypes from './tiny-types.js'
+import * as root from './root.js'
 
 export {
   Ram,
@@ -14,6 +14,6 @@ export {
   keystore,
   sequencer,
   tiny,
-  tinyFactory,
-  tree,
+  tinyTypes,
+  root,
 }
