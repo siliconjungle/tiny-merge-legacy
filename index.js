@@ -5,7 +5,7 @@ import * as keystore from './keystore.js'
 import * as sequencer from './sequencer.js'
 import * as tiny from './tiny.js'
 import * as tinyTypes from './tiny-types.js'
-import * as root from './root.js'
+import * as rootHelper from './root-helper.js'
 
 export {
   Ram,
@@ -15,5 +15,5 @@ export {
   sequencer,
   tiny,
   tinyTypes,
-  root,
+  rootHelper,
 }
