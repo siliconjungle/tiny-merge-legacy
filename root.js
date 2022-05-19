@@ -7,12 +7,6 @@ const ram = new Ram()
 // This + the ram needs to be saved in a database using a repository.
 const root = {}
 
-// Definition looks like this
-// const definition = {
-//   title: { type: PRIMITIVE.STRING },
-//   content: { type: PRIMITIVE.STRING },
-// }
-
 // For now all documents are flat.
 // In the future I will be adding other types.
 const matchesDefinition = (definition, data) => {
