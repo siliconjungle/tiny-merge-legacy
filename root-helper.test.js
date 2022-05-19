@@ -217,6 +217,92 @@ describe('documents', () => {
       lastUpdatedBy: userId,
     })
   })
+  it('should not set a new document when the data has a different number of keys than the definition', () => {
+    const ram = new Ram()
+    const root = {}
+
+    const userId = '0123456789abcdef'
+    const key = 'blogs'
+    const collection = createCollection(
+      ram,
+      {
+        title: { type: PRIMITIVE.STRING },
+        content: { type: PRIMITIVE.STRING },
+      },
+      userId,
+    )
+
+    const document = createDocument(
+      ram,
+      {
+        title: 'My first blog post',
+        content: 'Hello World',
+        createdAt: { type: PRIMITIVE.STRING },
+        lastUpdatedAt: { type: PRIMITIVE.STRING },
+      },
+      userId,
+    )
+
+    expect(() => {
+      const { hasUpdated, address } = setDocumentByKey(ram, collection, key, document, userId)
+    }).toThrow('Document does not match collection definition')
+  })
+  it ('should not set a new document when the data has a different type of a key than the definition', () => {
+    const ram = new Ram()
+    const root = {}
+
+    const userId = '0123456789abcdef'
+    const key = 'blogs'
+    const collection = createCollection(
+      ram,
+      {
+        title: { type: PRIMITIVE.STRING },
+        content: { type: PRIMITIVE.STRING },
+      },
+      userId,
+    )
+
+    const document = createDocument(
+      ram,
+      {
+        title: 'My first blog post',
+        content: 12,
+      },
+      userId,
+    )
+
+    expect(() => {
+      const { hasUpdated, address } = setDocumentByKey(ram, collection, key, document, userId)
+    }).toThrow('Document does not match collection definition')
+  })
+  it('should not set a new document when the data has a different key than the definition', () => {
+    const ram = new Ram()
+    const root = {}
+
+    const userId = '0123456789abcdef'
+    const key = 'blogs'
+    const collection = createCollection(
+      ram,
+      {
+        title: { type: PRIMITIVE.STRING },
+        content: { type: PRIMITIVE.STRING },
+      },
+      userId,
+    )
+
+    const document = createDocument(
+      ram,
+      {
+        title: 'My first blog post',
+        body: 'Hello World',
+      },
+      userId,
+    )
+
+    expect(() => {
+      const { hasUpdated, address } = setDocumentByKey(ram, collection, key, document, userId)
+    }).toThrow('Document does not match collection definition')
+  })
   it('should update an existing document', () => {
     const ram = new Ram()
     const root = {}

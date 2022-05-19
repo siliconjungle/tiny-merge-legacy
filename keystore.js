@@ -18,6 +18,14 @@ export const getChildByKey = (ram, keystore, key) => {
   return ram.get(keystore[key]) ?? null
 }
 
+export const getValues = (ram, keystore) => {
+  const values = {}
+  for (const key in keystore) {
+    values[key] = getChildByKey(ram, keystore, key)
+  }
+  return values
+}
+
 export const getChildAddressByKey = (keystore, key) => {
   return keystore[key] ?? null
 }
