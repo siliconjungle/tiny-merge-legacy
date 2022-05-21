@@ -48,6 +48,6 @@ export const getLocalChanges = (datum, value, userId) => {
   return {
     value,
     version: datum.version + 1,
-    lastUpdatedBy: userId,
+    userId,
   }
 }
