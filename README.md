@@ -1,4 +1,5 @@
 # Tiny Merge
+
 A tiny CRDT implemented in Javascript.
 
 The philosophy behind Tiny Merge is to strategically reduce the functionality of CRDT's in favour of simplicity.
@@ -6,6 +7,7 @@ The philosophy behind Tiny Merge is to strategically reduce the functionality of
 ## What future usage will look like for Tiny Merge
 
 ### Collections
+
 ```
 const blogsCollection = collection.set(ram, root, 'blogs', {
   title: { type: PRIMITIVE.STRING },
@@ -29,6 +31,7 @@ const likesCollection = collection.set(ram, root, 'likes', {
 ```
 
 ### Documents
+
 ```
   const blogDocument = document.set(ram, blogsCollection, 'first-post', {
     title: 'First blog post',
@@ -42,6 +45,7 @@ const likesCollection = collection.set(ram, root, 'likes', {
 ### Used with React
 
 #### Provider
+
 ```
 const client = new TinyClient({
   uri: SOCKET_URL,
@@ -56,16 +60,19 @@ const MyApp = ({ Component, pageProps }) => (
 ```
 
 #### Collections
+
 ```
 const [collection, setCollection, type, isLoading] = useCollection(key)
 ```
 
 #### Documents
+
 ```
 const [blog, setBlog, applyOperation, isLoading] = useDocument(collection, key, initialValue)
 ```
 
 ## License
+
 MIT License
 
 Copyright (c) 2022 James Addison

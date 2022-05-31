@@ -11,19 +11,24 @@ export const create = () => {
 
 export const push = (ram, sequencer, value, sequence, userId) => {
   const { references, sequences } = sequencer
-  const { address } = ram.set (value, userId)
+  const { address } = ram.set(value, userId)
 
-  let index = sequences.findIndex(s => s >= sequence)
+  let index = sequences.findIndex((s) => s >= sequence)
   if (index === -1) {
     references.push(address)
     sequences.push(sequence)
     return address
   }
 
-  const element = ram.get(references[index])
+  let element = ram.get(references[index])
 
-  while (index < sequences.length && sequences[index] <= sequence && userId < element.createdBy) {
+  while (
+    index < sequences.length &&
+    sequences[index] <= sequence &&
+    userId < element.createdBy
+  ) {
     index++
+    element = ram.get(references[index])
   }
 
   references.splice(index, 0, address)
@@ -33,5 +38,5 @@ export const push = (ram, sequencer, value, sequence, userId) => {
 
 export const getValues = (ram, sequencer) => {
   const { references } = sequencer
-  return references.map(address => ram.get(address))
+  return references.map((address) => ram.get(address))
 }

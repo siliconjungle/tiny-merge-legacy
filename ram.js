@@ -7,13 +7,14 @@ class Ram {
     this.emitter = new EventEmitter()
     this.emitter.setMaxListeners(0)
     this.store = {}
+    this.paths = {}
   }
 
-  get (address) {
+  get(address) {
     return this.store[address] ?? null
   }
 
-  set (value, userId, version = 0, address = createRandomId()) {
+  set(value, userId, version = 0, address = createRandomId()) {
     const datum = this.get(address)
     let hasUpdated = false
 
@@ -31,25 +32,21 @@ class Ram {
     }
 
     if (hasUpdated) {
-      this.emitter.emit(
-        address,
-        address,
-        this.store[address]
-      )
+      this.emitter.emit(address, address, this.store[address])
     }
 
     return { hasUpdated, address }
   }
 
-  subscribe (address, callback) {
+  subscribe(address, callback) {
     this.emitter.addListener(address, callback)
   }
 
-  unsubscribe (address, callback) {
+  unsubscribe(address, callback) {
     this.emitter.removeListener(address, callback)
   }
 
-  getSubscriptionCount (address) {
+  getSubscriptionCount(address) {
     return this.emitter.listenerCount(address)
   }
 }

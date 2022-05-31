@@ -8,10 +8,17 @@ export const create = (ram, initialValue, userId) => {
   return keystore
 }
 
-export const setChildByKey = (ram, keystore, key, value, userId, version = 0) => {
+export const setChildByKey = (
+  ram,
+  keystore,
+  key,
+  value,
+  userId,
+  version = 0
+) => {
   const saveAddress = keystore[key] ?? createRandomId()
   keystore[key] = saveAddress
-  return ram.set (value, userId, version, saveAddress)
+  return ram.set(value, userId, version, saveAddress)
 }
 
 export const getChildByKey = (ram, keystore, key) => {

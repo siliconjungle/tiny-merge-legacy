@@ -20,13 +20,18 @@ describe('sequencer push', () => {
     const userId = '0x123'
 
     const address = sequencer.push(ram, seq, value, sequence, userId)
-    expect(ram.get(address)).toEqual({ value: 'Hello world', createdBy: userId, lastUpdatedBy: userId, version: 0 })
+    expect(ram.get(address)).toEqual({
+      value: 'Hello world',
+      createdBy: userId,
+      lastUpdatedBy: userId,
+      version: 0,
+    })
   })
   it('should push three elements in order by the same user', () => {
     const ram = new Ram()
     const seq = sequencer.create()
     const userId = '0x123'
-  
+
     const value = 'Hello world'
     const sequence = 0
     const address = sequencer.push(ram, seq, value, sequence, userId)
@@ -46,7 +51,7 @@ describe('sequencer push', () => {
     const seq = sequencer.create()
     const userId = '0x456'
     const userId2 = '0x123'
-  
+
     const value = 'Hello world'
     const sequence = 0
     const address = sequencer.push(ram, seq, value, sequence, userId)

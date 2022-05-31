@@ -67,11 +67,15 @@ describe('tiny getLocalChanges', () => {
   it('should detect changes', () => {
     const userId = '0x123'
     const tiny = create('Hello world', userId)
-    const localChanges = getLocalChanges(tiny, 'The world says hello back', userId)
+    const localChanges = getLocalChanges(
+      tiny,
+      'The world says hello back',
+      userId
+    )
     expect(localChanges).toEqual({
       value: 'The world says hello back',
       version: 1,
-      lastUpdatedBy: userId,
+      userId,
     })
   })
 })

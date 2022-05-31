@@ -25,7 +25,14 @@ const matchesDefinition = (ram, definition, data) => {
   return true
 }
 
-export const setCollectionByKey = (ram, root, key, collection, userId, version = 0) => {
+export const setCollectionByKey = (
+  ram,
+  root,
+  key,
+  collection,
+  userId,
+  version = 0
+) => {
   return keystore.setChildByKey(ram, root, key, collection, userId, version)
 }
 
@@ -37,9 +44,26 @@ export const getCollectionKeys = (root) => {
   return Object.keys(root)
 }
 
-export const setDocumentByKey = (ram, collection, key, document, userId, version = 0) => {
-  if (document === null || matchesDefinition(ram, collection.definition, document.data)) {
-    return keystore.setChildByKey(ram, collection.documents, key, document, userId, version)
+export const setDocumentByKey = (
+  ram,
+  collection,
+  key,
+  document,
+  userId,
+  version = 0
+) => {
+  if (
+    document === null ||
+    matchesDefinition(ram, collection.definition, document.data)
+  ) {
+    return keystore.setChildByKey(
+      ram,
+      collection.documents,
+      key,
+      document,
+      userId,
+      version
+    )
   }
   throw new Error('Document does not match collection definition')
 }
