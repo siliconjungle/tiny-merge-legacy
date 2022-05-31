@@ -18,23 +18,24 @@ export const insert = (ram, list, value, userId, sequence, left) => {
   createdBy[address] = userId
 
   insertedAt[left] = insertedAt[left] || []
-  let indexOffset = 0
+  let leftInsertAddress = left
 
   if (insertedAt[left].length === 0) {
     insertedAt[left].push(address)
   } else {
-    indexOffset = insertedAt[left].findIndex(
+    const indexOffset = insertedAt[left].find(
       (indexAddress) =>
         sequences[indexAddress] <= sequence && createdBy[indexAddress] < userId
     )
     insertedAt[left].splice(indexOffset, 0, address)
+    leftInsertAddress = insertedAt[left][indexOffset]
   }
 
   if (references.length === 0) {
     references.push(address)
   } else {
-    const leftIndex = references.findIndex((reference) => reference === left)
-    references.splice(leftIndex + indexOffset + 1, 0, address)
+    const leftIndex = references.findIndex((reference) => reference === leftInsertAddress)
+    references.splice(leftIndex + 1, 0, address)
   }
 
   return address
