@@ -35,11 +35,9 @@ describe('list', () => {
     const ram = new Ram()
     const list = create()
     const userId = '01x574b'
-    let sequence = 0
+    const sequence = 0
     const address = insert(ram, list, 'H', userId, sequence, null)
-    ++sequence
     const address2 = insert(ram, list, 'e', userId, sequence, address)
-    ++sequence
     const address3 = insert(ram, list, 'l', userId, sequence, address2)
     expect(list).toEqual({
       insertedAt: {
@@ -49,8 +47,8 @@ describe('list', () => {
       },
       sequences: {
         [address]: 0,
-        [address2]: 1,
-        [address3]: 2,
+        [address2]: 0,
+        [address3]: 0,
       },
       createdBy: {
         [address]: userId,
@@ -65,12 +63,10 @@ describe('list', () => {
     const list = create()
     const userId = '01x574b'
     const userId2 = '02x564c'
-    let sequence = 0
-    let sequence2 = 0
+    const sequence = 0
+    const sequence2 = 0
     const address = insert(ram, list, 'H', userId, sequence, null)
-    ++sequence
     const address2 = insert(ram, list, 'e', userId, sequence, address)
-    ++sequence
     const address3 = insert(ram, list, 'l', userId2, sequence2, null)
     expect(list).toEqual({
       insertedAt: {
@@ -79,7 +75,7 @@ describe('list', () => {
       },
       sequences: {
         [address]: 0,
-        [address2]: 1,
+        [address2]: 0,
         [address3]: 0,
       },
       createdBy: {
@@ -94,9 +90,8 @@ describe('list', () => {
     const ram = new Ram()
     const list = create()
     const userId = '01x574b'
-    let sequence = 0
+    const sequence = 0
     const address = insert(ram, list, 'H', userId, sequence, null)
-    ++sequence
     insert(ram, list, 'e', userId, sequence, address)
     expect(getValues(ram, list)).toEqual([
       {
