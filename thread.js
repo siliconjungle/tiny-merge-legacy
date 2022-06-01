@@ -18,10 +18,15 @@ export const insert = (ram, list, value, userId, sequence, parent) => {
   if (insertedAt[parent].length === 0) {
     insertedAt[parent].push(address)
   } else {
-    insertedAt[parent].splice(insertedAt[parent].findIndex(
-      (indexAddress) =>
-        sequences[indexAddress] <= sequence && createdBy[indexAddress] < userId
-    ), 0, address)
+    insertedAt[parent].splice(
+      insertedAt[parent].findIndex(
+        (indexAddress) =>
+          sequences[indexAddress] <= sequence &&
+          createdBy[indexAddress] < userId
+      ),
+      0,
+      address
+    )
   }
 
   return address
