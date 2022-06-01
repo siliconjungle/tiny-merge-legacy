@@ -1,9 +1,9 @@
 import * as l from './list'
-import { getRandomId } from './utils'
+import { createRandomId } from './utils'
 
-const SERVER_ID = getRandomId()
+const SERVER_ID = createRandomId()
 
-const insert = (ram, list, value, left) => {
+export const insert = (ram, list, value, left) => {
   const { insertedAt, sequence } = list
   const addressList = insertedAt[left] || []
   const seq =
