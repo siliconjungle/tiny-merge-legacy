@@ -1,6 +1,7 @@
 // Works similarly to an append only list, except you can also specify a left element to insert at.
 // Each parent has its own sequence numbers that go up separately.
 // When a user makes an insertion their sequence is the highest sequence for that left element they've received + 1.
+// There are problems with this as it's not eventually consistent.
 export const create = () => {
   return {
     insertedAt: {},
